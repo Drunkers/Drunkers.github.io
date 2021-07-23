@@ -60,10 +60,10 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数 7
+			总文章数 8
 		</nav> -->
 		<!-- <nav>
-			总字数 <span class="post-count">3.2k</span>
+			总字数 <span class="post-count">3.6k</span>
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -153,6 +153,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-nextTick使用场景" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/28/nextTick%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">nextTick使用场景</a>
+    </h1>
+  
+
+        <!-- <div align="center" class="post-count">
+          字数：346字 | 预计阅读时长：1分钟
+        </div> -->
+        <!--显示阅读次数-->
+  <!--  -->
+<!--显示阅读次数完毕-->
+        
+        
+
+<a href="/2020/07/28/nextTick%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" class="archive-article-date">
+	
+  	<time datetime="2020-07-28T12:33:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>nextTick 中的回调是在下次 DOM 更新循环结束之后执行的延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。主要思路就是采用微任务优先的方式调用异步方法去执行 nextTick 包装的方法</p>
+<ol>
+<li>相关代码如下<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">let callbacks = [];</span><br><span class="line">let pending = false;</span><br><span class="line">function flushCallbacks() &#123;</span><br><span class="line">  pending = false; //把标志还原为false</span><br><span class="line">  // 依次执行回调</span><br><span class="line">  for (let i = 0; i &lt; callbacks.length; i++) &#123;</span><br><span class="line">    callbacks[i]();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let timerFunc; //定义异步方法  采用优雅降级</span><br><span class="line">if (typeof Promise !== &quot;undefined&quot;) &#123;</span><br><span class="line">  // 如果支持promise</span><br><span class="line">  const p = Promise.resolve();</span><br><span class="line">  timerFunc = () =&gt; &#123;</span><br><span class="line">    p.then(flushCallbacks);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125; else if (typeof MutationObserver !== &quot;undefined&quot;) &#123;</span><br><span class="line">  // MutationObserver 主要是监听dom变化 也是一个异步方法</span><br><span class="line">  let counter = 1;</span><br><span class="line">  const observer = new MutationObserver(flushCallbacks);</span><br><span class="line">  const textNode = document.createTextNode(String(counter));</span><br><span class="line">  observer.observe(textNode, &#123;</span><br><span class="line">    characterData: true,</span><br><span class="line">  &#125;);</span><br><span class="line">  timerFunc = () =&gt; &#123;</span><br><span class="line">    counter = (counter + 1) % 2;</span><br><span class="line">    textNode.data = String(counter);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125; else if (typeof setImmediate !== &quot;undefined&quot;) &#123;</span><br><span class="line">  // 如果前面都不支持 判断setImmediate</span><br><span class="line">  timerFunc = () =&gt; &#123;</span><br><span class="line">    setImmediate(flushCallbacks);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  // 最后降级采用setTimeout</span><br><span class="line">  timerFunc = () =&gt; &#123;</span><br><span class="line">    setTimeout(flushCallbacks, 0);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function nextTick(cb) &#123;</span><br><span class="line">  // 除了渲染watcher  还有用户自己手动调用的nextTick 一起被收集到数组</span><br><span class="line">  callbacks.push(cb);</span><br><span class="line">  if (!pending) &#123;</span><br><span class="line">    // 如果多次调用nextTick  只会执行一次异步 等异步队列清空之后再把标志变为false</span><br><span class="line">    pending = true;</span><br><span class="line">    timerFunc();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+也可以去看看官方文档的例子</li>
+</ol>
+
+      
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/28/nextTick%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-vue-router" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -160,7 +236,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/27/vue-router/">vue-router</a>
+      <a class="article-title" href="/2020/07/27/vue-router/">vue-router</a>
     </h1>
   
 
@@ -173,9 +249,9 @@
         
         
 
-<a href="/2021/07/27/vue-router/" class="archive-article-date">
+<a href="/2020/07/27/vue-router/" class="archive-article-date">
 	
-  	<time datetime="2021-07-27T12:05:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-27</time>
+  	<time datetime="2020-07-27T12:05:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-27</time>
 </a>
         
       </header>
@@ -184,7 +260,7 @@
       
         <p> vue-router 动态路由是什么? 有什么问题?<br>
         
-          <a class="article-more-a" href="/2021/07/27/vue-router/#more">more >></a>
+          <a class="article-more-a" href="/2020/07/27/vue-router/#more">more >></a>
         
       
       
@@ -208,7 +284,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/27/vue-router/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/07/27/vue-router/">展开全文 >></a>
         </p>
       
 
