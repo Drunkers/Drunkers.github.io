@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>git clone https：//报错而 git clone git：//正常 处理方法 | Drunker&#39;s Blog</title>
+  <title>Github SSH密钥 | Drunker&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="如下列代码所示，当我试图克隆别人的repo时，会发生这样的错误，当我从git：&#x2F;而不是https:&#x2F;&#x2F;，克隆时，它工作得很好。 git clone https:&#x2F;&#x2F;github.com&#x2F;litten&#x2F;hexo-theme-yilia.git themes&#x2F;yilia  Cloning into &#39;themes&#x2F;yilia&#39;... fatal: unable to access">
+  <meta name="description" content="为什么要添加SSH密钥使用 SSH 协议，您可以连接并验证远程服务器和服务。使用 SSH 密钥，您可以连接到 GitHub，而无需在每次访问时提供您的用户名和个人访问令牌。 在生成 SSH 密钥之前，您可以检查是否有任何现有的 SSH 密钥。 1.打开git bash2.输入ls -al ~&#x2F;.ssh以查看是否存在现有的 SSH 密钥： $ ls -al ~&#x2F;.ssh # Lists the">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git clone https：&#x2F;&#x2F;报错而 git clone git：&#x2F;&#x2F;正常 处理方法">
-<meta property="og:url" content="http://example.com/2020/07/22/two/index.html">
+<meta property="og:title" content="Github SSH密钥">
+<meta property="og:url" content="http://example.com/2020/07/23/SSH%E5%AF%86%E9%92%A5/index.html">
 <meta property="og:site_name" content="Drunker&#39;s Blog">
-<meta property="og:description" content="如下列代码所示，当我试图克隆别人的repo时，会发生这样的错误，当我从git：&#x2F;而不是https:&#x2F;&#x2F;，克隆时，它工作得很好。 git clone https:&#x2F;&#x2F;github.com&#x2F;litten&#x2F;hexo-theme-yilia.git themes&#x2F;yilia  Cloning into &#39;themes&#x2F;yilia&#39;... fatal: unable to access">
+<meta property="og:description" content="为什么要添加SSH密钥使用 SSH 协议，您可以连接并验证远程服务器和服务。使用 SSH 密钥，您可以连接到 GitHub，而无需在每次访问时提供您的用户名和个人访问令牌。 在生成 SSH 密钥之前，您可以检查是否有任何现有的 SSH 密钥。 1.打开git bash2.输入ls -al ~&#x2F;.ssh以查看是否存在现有的 SSH 密钥： $ ls -al ~&#x2F;.ssh # Lists the">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-22T12:11:26.000Z">
-<meta property="article:modified_time" content="2021-07-21T15:28:04.435Z">
+<meta property="article:published_time" content="2020-07-23T12:11:26.000Z">
+<meta property="article:modified_time" content="2021-07-23T09:59:15.072Z">
 <meta property="article:author" content="Drunker">
-<meta property="article:tag" content="git clone">
+<meta property="article:tag" content="Github">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Drunker&#39;s Blog" type="application/atom+xml">
@@ -65,10 +65,10 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数 5
+			总文章数 7
 		</nav> -->
 		<!-- <nav>
-			总字数 <span class="post-count">2.7k</span>
+			总字数 <span class="post-count">3.2k</span>
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -156,19 +156,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-two" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-SSH密钥" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      git clone https：//报错而 git clone git：//正常 处理方法
+      Github SSH密钥
     </h1>
   
 
         <!-- <div align="center" class="post-count">
-          字数：495字 | 预计阅读时长：2分钟
+          字数：196字 | 预计阅读时长：1分钟
         </div> -->
         <!--显示阅读次数-->
   <!-- 
@@ -191,9 +191,9 @@
 	</span>
 
 
-<a href="/2020/07/22/two/" class="archive-article-date">
+<a href="/2020/07/23/SSH%E5%AF%86%E9%92%A5/" class="archive-article-date">
 	
-  	<time datetime="2020-07-22T12:11:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-22</time>
+  	<time datetime="2020-07-23T12:11:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-23</time>
 </a>
         
       </header>
@@ -202,35 +202,18 @@
       
         <span id="more"></span>
 
-<p>如下列代码所示，当我试图克隆别人的repo时，会发生这样的错误，当我从git：/而不是https://，克隆时，它工作得很好。</p>
-<pre><code>git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia
-
-Cloning into &#39;themes/yilia&#39;...
-fatal: unable to access &#39;https://github.com/litten/hexo-theme-yilia.git/&#39;: OpenSSL SSL_connect: Connection was reset in connection to github.com:443
+<h4 id="为什么要添加SSH密钥"><a href="#为什么要添加SSH密钥" class="headerlink" title="为什么要添加SSH密钥"></a>为什么要添加SSH密钥</h4><p>使用 SSH 协议，您可以连接并验证远程服务器和服务。使用 SSH 密钥，您可以连接到 GitHub，而无需在每次访问时提供您的用户名和个人访问令牌。</p>
+<p>在生成 SSH 密钥之前，您可以检查是否有任何现有的 SSH 密钥。</p>
+<p>1.打开git bash<br>2.输入ls -al ~/.ssh以查看是否存在现有的 SSH 密钥：</p>
+<pre><code>$ ls -al ~/.ssh
+# Lists the files in your .ssh directory, if they exist  
 </code></pre>
-<p> 发生这种情况是因为代理是在git中配置的。既然它是https代理（而不是http）<code>git config http.proxy</code>和<code>git config --global http.proxy</code>也无济于事。</p>
-<h4 id="解决方案一"><a href="#解决方案一" class="headerlink" title="解决方案一"></a>解决方案一</h4><p>1、看看你的git配置</p>
-<pre><code>git config --global -l
+<p>3.检查目录列表以查看您是否已经拥有公共 SSH 密钥。默认情况下，公钥的文件名是以下之一：</p>
+<pre><code>id_rsa.pub
+id_ecdsa.pub
+id_ed25519.pub
 </code></pre>
-<p>如果你没有任何与https代理相关的内容，例如https_proxy = …问题不在这里。<br>如果您有与https代理相关的内容，请将其从〜/ .gitconfig文件中删除，然后重试。</p>
-<p>2、如果仍然不起作用，请取消设置环境变量 </p>
-<pre><code>env|grep -i proxy  
-</code></pre>
-<p> 你应该有一行或几行https_proxy = …<br>使用以下内容逐个取消设置：取消设置https_proxy（或HTTPS_PROXY，具体取决于变量的名称）</p>
-<p>3、再次检查环境变量</p>
-<pre><code>env|grep -i proxy  
-</code></pre>
-<p>如果它没有显示任何你应该是好的。<br>注意：此解决方案可以应用于http和https代理问题。只是变量名称从https更改为http。</p>
-<h4 id="解决方案二"><a href="#解决方案二" class="headerlink" title="解决方案二"></a>解决方案二</h4><p>在开启shadowsock的前提下，手动配置git的代理。git客户端输入如下两个命令就可以了。</p>
-<pre><code>git config --global http.proxy http://127.0.0.1:1080
-git config --global https.proxy http://127.0.0.1:1080
-</code></pre>
-<p>http://也可以改成sockets5://,但是区别在于：socks5不支持通过pubkey免密登录github，每次提交代码只能输入用户名和密码。http可以支持免密登录。</p>
-<p>取消代理：</p>
-<pre><code>git config --global --unset http.proxy 
-git config --global --unset https.proxy 
-</code></pre>
-<p>其实方案一和方案二是同一种方法，不过方案二更加具体一点罢了，大部分问题都可以用方案二解决，当方案二无效时，考虑使用方案一。</p>
+<p>没有的话就生成一个，突然看到官网写得很详细，参考链接<a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">GitHub文档</a></p>
 
       
       
@@ -244,7 +227,7 @@ git config --global --unset https.proxy
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">git clone</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
         		</li>
       		
 		</ul>
@@ -300,7 +283,7 @@ git config --global --unset https.proxy
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/07/22/two/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/07/23/SSH%E5%AF%86%E9%92%A5/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -314,18 +297,18 @@ git config --global --unset https.proxy
   
 <nav id="article-nav">
   
-    <a href="/2020/07/23/three/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/07/24/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Github SSH密钥
+          Github+hxeo搭建博客
         
       </div>
     </a>
   
   
-    <a href="/2020/07/21/one/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">git查看配置信息</div>
+    <a href="/2020/07/22/git_clone%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">git clone https：//报错而 git clone git：//正常 处理方法</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -352,7 +335,7 @@ git config --global --unset https.proxy
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%B8%80"><span class="toc-number">1.</span> <span class="toc-text">解决方案一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C"><span class="toc-number">2.</span> <span class="toc-text">解决方案二</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%B7%BB%E5%8A%A0SSH%E5%AF%86%E9%92%A5"><span class="toc-number">1.</span> <span class="toc-text">为什么要添加SSH密钥</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -473,14 +456,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Github，hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">git config</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Github</a>
               </li>
              
@@ -489,7 +464,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">git config</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">vue vue-router</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">主题个性化设置</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">图片</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Github，hexo</a>
               </li>
             
             <div class="clearfix"></div>
