@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>nextTick使用场景 | Drunker&#39;s Blog</title>
+  <title>总结vue一些命名规范 | Drunker&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="nextTick 中的回调是在下次 DOM 更新循环结束之后执行的延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。主要思路就是采用微任务优先的方式调用异步方法去执行 nextTick 包装的方法  相关代码如下123456789101112131415161718192021222324252627282930313233343536373839404142434445464748">
+  <meta name="description" content="一、命名规范市面上常用的命名规范：  camelCase（小驼峰式命名法 —— 首字母小写） PascalCase（大驼峰式命名法 —— 首字母大写） kebab-case（短横线连接式） Snake（下划线连接式）  1.1 项目名全部采用小写方式， 以短横线分隔。例：my-project-name1.2 目录名参照项目命名规则，有复数结构时，要采用复数命名法。例：docs、assets、com">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nextTick使用场景">
-<meta property="og:url" content="http://example.com/2020/07/28/nextTick%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/index.html">
+<meta property="og:title" content="总结vue一些命名规范">
+<meta property="og:url" content="http://example.com/2020/07/29/%E6%80%BB%E7%BB%93vue%E4%B8%80%E4%BA%9B%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/index.html">
 <meta property="og:site_name" content="Drunker&#39;s Blog">
-<meta property="og:description" content="nextTick 中的回调是在下次 DOM 更新循环结束之后执行的延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。主要思路就是采用微任务优先的方式调用异步方法去执行 nextTick 包装的方法  相关代码如下123456789101112131415161718192021222324252627282930313233343536373839404142434445464748">
+<meta property="og:description" content="一、命名规范市面上常用的命名规范：  camelCase（小驼峰式命名法 —— 首字母小写） PascalCase（大驼峰式命名法 —— 首字母大写） kebab-case（短横线连接式） Snake（下划线连接式）  1.1 项目名全部采用小写方式， 以短横线分隔。例：my-project-name1.2 目录名参照项目命名规则，有复数结构时，要采用复数命名法。例：docs、assets、com">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-28T12:33:17.000Z">
-<meta property="article:modified_time" content="2021-07-23T14:58:48.268Z">
+<meta property="article:published_time" content="2020-07-29T13:25:49.000Z">
+<meta property="article:modified_time" content="2021-07-24T14:31:43.521Z">
 <meta property="article:author" content="Drunker">
-<meta property="article:tag" content="vue nextTick">
+<meta property="article:tag" content="vue 命名规范">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Drunker&#39;s Blog" type="application/atom+xml">
@@ -156,19 +156,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-nextTick使用场景" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-总结vue一些命名规范" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      nextTick使用场景
+      总结vue一些命名规范
     </h1>
   
 
         <!-- <div align="center" class="post-count">
-          字数：346字 | 预计阅读时长：1分钟
+          字数：800字 | 预计阅读时长：3分钟
         </div> -->
         <!--显示阅读次数-->
   <!-- 
@@ -191,20 +191,38 @@
 	</span>
 
 
-<a href="/2020/07/28/nextTick%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" class="archive-article-date">
+<a href="/2020/07/29/%E6%80%BB%E7%BB%93vue%E4%B8%80%E4%BA%9B%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/" class="archive-article-date">
 	
-  	<time datetime="2020-07-28T12:33:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
+  	<time datetime="2020-07-29T13:25:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>nextTick 中的回调是在下次 DOM 更新循环结束之后执行的延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。主要思路就是采用微任务优先的方式调用异步方法去执行 nextTick 包装的方法</p>
-<ol>
-<li>相关代码如下<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">let callbacks = [];</span><br><span class="line">let pending = false;</span><br><span class="line">function flushCallbacks() &#123;</span><br><span class="line">  pending = false; //把标志还原为false</span><br><span class="line">  // 依次执行回调</span><br><span class="line">  for (let i = 0; i &lt; callbacks.length; i++) &#123;</span><br><span class="line">    callbacks[i]();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let timerFunc; //定义异步方法  采用优雅降级</span><br><span class="line">if (typeof Promise !== &quot;undefined&quot;) &#123;</span><br><span class="line">  // 如果支持promise</span><br><span class="line">  const p = Promise.resolve();</span><br><span class="line">  timerFunc = () =&gt; &#123;</span><br><span class="line">    p.then(flushCallbacks);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125; else if (typeof MutationObserver !== &quot;undefined&quot;) &#123;</span><br><span class="line">  // MutationObserver 主要是监听dom变化 也是一个异步方法</span><br><span class="line">  let counter = 1;</span><br><span class="line">  const observer = new MutationObserver(flushCallbacks);</span><br><span class="line">  const textNode = document.createTextNode(String(counter));</span><br><span class="line">  observer.observe(textNode, &#123;</span><br><span class="line">    characterData: true,</span><br><span class="line">  &#125;);</span><br><span class="line">  timerFunc = () =&gt; &#123;</span><br><span class="line">    counter = (counter + 1) % 2;</span><br><span class="line">    textNode.data = String(counter);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125; else if (typeof setImmediate !== &quot;undefined&quot;) &#123;</span><br><span class="line">  // 如果前面都不支持 判断setImmediate</span><br><span class="line">  timerFunc = () =&gt; &#123;</span><br><span class="line">    setImmediate(flushCallbacks);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  // 最后降级采用setTimeout</span><br><span class="line">  timerFunc = () =&gt; &#123;</span><br><span class="line">    setTimeout(flushCallbacks, 0);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function nextTick(cb) &#123;</span><br><span class="line">  // 除了渲染watcher  还有用户自己手动调用的nextTick 一起被收集到数组</span><br><span class="line">  callbacks.push(cb);</span><br><span class="line">  if (!pending) &#123;</span><br><span class="line">    // 如果多次调用nextTick  只会执行一次异步 等异步队列清空之后再把标志变为false</span><br><span class="line">    pending = true;</span><br><span class="line">    timerFunc();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-也可以去看看官方文档的例子</li>
-</ol>
+        <p>一、命名规范<br>市面上常用的命名规范：</p>
+<ul>
+<li>camelCase（小驼峰式命名法 —— 首字母小写）</li>
+<li>PascalCase（大驼峰式命名法 —— 首字母大写）</li>
+<li>kebab-case（短横线连接式）</li>
+<li>Snake（下划线连接式）</li>
+</ul>
+<p>1.1 项目名<br>全部采用小写方式， 以短横线分隔。例：my-project-name<br>1.2 目录名<br>参照项目命名规则，有复数结构时，要采用复数命名法。例：docs、assets、components、directives、mixins、utils、views</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">my-project-name/</span><br><span class="line">|- BuildScript // 流水线部署文件目录</span><br><span class="line">|- docs // 项目的细化文档目录（可选）</span><br><span class="line">|- nginx // 部署在容器上前端项目 nginx 代理文件目录</span><br><span class="line">|- node_modules // 下载的依赖包</span><br><span class="line">|- public         // 静态页面目录</span><br><span class="line">    |- index.html // 项目入口</span><br><span class="line">|- src // 源码目录</span><br><span class="line">    |- api // http 请求目录</span><br><span class="line">    |- assets // 静态资源目录，这里的资源会被wabpack构建</span><br><span class="line">        |- icon // icon 存放目录</span><br><span class="line">        |- img // 图片存放目录</span><br><span class="line">        |- js // 公共 js 文件目录</span><br><span class="line">        |- scss // 公共样式 scss 存放目录</span><br><span class="line">            |- frame.scss // 入口文件</span><br><span class="line">            |- global.scss // 公共样式</span><br><span class="line">            |- reset.scss // 重置样式</span><br><span class="line">    |- components // 组件</span><br><span class="line">    |- plugins // 插件</span><br><span class="line">    |- router // 路由</span><br><span class="line">    |- routes // 详细的路由拆分目录（可选）</span><br><span class="line">        |- index.js</span><br><span class="line">    |- store // 全局状态管理</span><br><span class="line">    |- utils // 工具存放目录</span><br><span class="line">        |- request.js // 公共请求工具</span><br><span class="line">    |- views // 页面存放目录</span><br><span class="line">    |- App.vue // 根组件</span><br><span class="line">    |- main.js // 入口文件</span><br><span class="line">    |- tests // 测试用例</span><br><span class="line">    |- .browserslistrc// 浏览器兼容配置文件</span><br><span class="line">    |- .editorconfig // 编辑器配置文件</span><br><span class="line">    |- .eslintignore // eslint 忽略规则</span><br><span class="line">    |- .eslintrc.js // eslint 规则</span><br><span class="line">    |- .gitignore // git 忽略规则</span><br><span class="line">    |- babel.config.js // babel 规则</span><br><span class="line">    |- Dockerfile // Docker 部署文件</span><br><span class="line">    |- jest.config.js</span><br><span class="line">    |- package-lock.json</span><br><span class="line">    |- package.json // 依赖</span><br><span class="line">    |- README.md // 项目 README</span><br><span class="line">    |- vue.config.js // webpack 配置  </span><br><span class="line">```  </span><br><span class="line">1.3 图像文件名</span><br><span class="line">全部采用小写方式， 优先选择单个单词命名，多个单词命名以下划线分隔</span><br></pre></td></tr></table></figure>
+<p>banner_sina.gif<br>menu_aboutus.gif<br>menutitle_news.gif<br>logo_police.gif<br>logo_national.gif<br>pic_people.jpg<br>pic_TV.jpg  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.4 HTML 文件名</span><br><span class="line">全部采用小写方式， 优先选择单个单词命名，多个单词命名以下划线分隔</span><br></pre></td></tr></table></figure>
+<p>|- error_report.html<br>|- success_report.html  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.5 CSS 文件名</span><br><span class="line">全部采用小写方式， 优先选择单个单词命名，多个单词命名以短横线分隔</span><br></pre></td></tr></table></figure>
+<p>|- normalize.less<br>|- base.less<br>|- date-picker.scss<br>|- input-number.scss  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.6 JavaScript 文件名</span><br><span class="line">全部采用小写方式， 优先选择单个单词命名，多个单词命名以短横线分隔</span><br></pre></td></tr></table></figure>
+<p>|- index.js<br>|- plugin.js<br>|- util.js<br>|- date-util.js<br>|- account-model.js<br>|- collapse-transition.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.7 Vue 单文件组件命名</span><br><span class="line">文件扩展名为 .vue 的 single-file components (单文件组件)。单文件组件名应该始终是单词大写开头 (PascalCase)</span><br></pre></td></tr></table></figure>
+<p>components/<br>|- MyComponent.vue  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.8 Vue 单例组件名</span><br><span class="line">**只拥有单个活跃实例的组件应该以 The 前缀命名，以示其唯一性**</span><br><span class="line">这不意味着组件只可用于一个单页面，而是每个页面只使用一次。这些组件永远不接受任何 prop，因为它们是为你的应用定制的。如果你发现有必要添加 prop，那就表明这实际上是一个可复用的组件，只是目前在每个页面里只使用一次</span><br><span class="line"></span><br><span class="line">比如，头部和侧边栏组件几乎在每个页面都会使用，不接受 prop，该组件是专门为该应用所定制的</span><br></pre></td></tr></table></figure>
+<p>components/<br>|- TheHeading.vue<br>|- TheSidebar.vue  </p>
+<pre><code>
+### 闲暇时间会持续更新
+</code></pre>
 
       
       
@@ -218,7 +236,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">vue nextTick</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue 命名规范</a>
         		</li>
       		
 		</ul>
@@ -274,7 +292,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/07/28/nextTick%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/07/29/%E6%80%BB%E7%BB%93vue%E4%B8%80%E4%BA%9B%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -288,18 +306,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/07/29/%E6%80%BB%E7%BB%93vue%E4%B8%80%E4%BA%9B%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/07/30/%E6%80%BB%E7%BB%93Vue%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          总结vue一些命名规范
+          总结Vue一些代码规范
         
       </div>
     </a>
   
   
-    <a href="/2020/07/27/vue-router/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">vue-router</div>
+    <a href="/2020/07/28/nextTick%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">nextTick使用场景</div>
       <i class="icon-circle-right"></i>
     </a>
   
