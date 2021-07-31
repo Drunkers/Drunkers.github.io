@@ -60,10 +60,10 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数 10
+			总文章数 11
 		</nav> -->
 		<!-- <nav>
-			总字数 <span class="post-count">5.9k</span>
+			总字数 <span class="post-count">7.5k</span>
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -152,6 +152,139 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-webpack简单理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/31/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/">webpack简单理解</a>
+    </h1>
+  
+
+        <!-- <div align="center" class="post-count">
+          字数：1.6k字 | 预计阅读时长：6分钟
+        </div> -->
+        <!--显示阅读次数-->
+  <!--  -->
+<!--显示阅读次数完毕-->
+        
+        
+
+<a href="/2020/07/31/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" class="archive-article-date">
+	
+  	<time datetime="2020-07-31T12:54:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、什么是webpack<br><strong>webpack是一个打包工具，他的宗旨是一切静态资源皆可打包</strong><br>1.1 原理分析<br>首先我们通过一个制作一个打包文件的原型<br>假设有两个js模块，这里我们先假设这两个模块是复合commomjs标准的es5模块<br>语法和模块化规范转换的事我们先放一放，后面说<br>我们的目的是将这两个模块打包为一个能在浏览器端运行的文件，这个文件其实叫bundle.js<br><strong>比如</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">var</span> add = <span class="built_in">require</span>(<span class="string">&#x27;add.js&#x27;</span>).default</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span> , <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// add.js</span></span><br><span class="line"><span class="built_in">exports</span>.default = <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>&#123;<span class="keyword">return</span> a + b&#125;</span><br></pre></td></tr></table></figure>
+<p>假设在浏览器中直接执行这个程序肯定会有问题 最主要的问题是浏览器中没有exports对象与require方法所以一定会报错<br>我们需要通过模拟exports对象和require方法  </p>
+<p>1.2 模拟exports对象<br>首先我们知道如果在nodejs打包的时候我们会使用fs.readfileSync()来读取js文件。这样的话js文件会是一个字符串,而如果需要将字符串中的代码运行会有两个方法分别是new Function与Eval</p>
+<p>在这里面我们选用执行效率较高的eval</p>
+<img src="/2020/07/31/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/1.gif" class="" title="图片描述">  
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span> = &#123;&#125;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&#x27;exports.default = function(a,b) &#123;return a + b&#125;&#x27;</span>) <span class="comment">// node文件读取后的代码字符串</span></span><br><span class="line"><span class="built_in">exports</span>.default(<span class="number">1</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<img src="/2020/07/31/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/2.png" class="" title="图片描述">  
+
+<p>上面这段代码的运行结果可以将模块中的方法绑定在exports对象中。由于子模块中会声明变量，为了不污染全局我们使用一个自运行函数来封装一下,如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="built_in">exports</span> = &#123;&#125;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, code</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">eval</span>(code)</span><br><span class="line">&#125;)(<span class="built_in">exports</span>, <span class="string">&#x27;exports.default = function(a,b)&#123;return a + b&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>1.3 模拟require函数<br>require函数的功能比较简单，就是根据提供的file名称加载对应的模块<br>首先我们先看看如果只有一个固定模块应该怎么写,这里贴一张掘金大佬的动图</p>
+<img src="/2020/07/31/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/3.gif" class="" title="图片描述">  
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">require</span>(<span class="params">file</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">var</span> <span class="built_in">exports</span> = &#123;&#125;;</span><br><span class="line"> (<span class="function"><span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, code</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">eval</span>(code)</span><br><span class="line"> &#125;)(<span class="built_in">exports</span>, <span class="string">&#x27;exports.default = function(a,b)&#123;return a + b&#125;&#x27;</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">exports</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> add = <span class="built_in">require</span>(<span class="string">&#x27;add.js&#x27;</span>).default</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span> , <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<p>完成了固定模块，我们下面只需要稍加改动，将所有模块的文件名和代码字符串整理为一张key-value表就可以根据传入的文件名加载不同的模块了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">list</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">require</span>(<span class="params">file</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="built_in">exports</span> = &#123;&#125;;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, code</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">eval</span>(code);</span><br><span class="line">    &#125;)(<span class="built_in">exports</span>, list[file]);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">exports</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&quot;index.js&quot;</span>);</span><br><span class="line">&#125;)(&#123;</span><br><span class="line">  <span class="string">&quot;index.js&quot;</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    var add = require(&#x27;add.js&#x27;).default</span></span><br><span class="line"><span class="string">    console.log(add(1 , 2))</span></span><br><span class="line"><span class="string">        `</span>,</span><br><span class="line">  <span class="string">&quot;add.js&quot;</span>: <span class="string">`exports.default = function(a,b)&#123;return a + b&#125;`</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>当然要说明的一点是真正webpack生成的bundle.js文件中还需要增加模块间的依赖关系<br>叫做依赖图（Dependency Graph）<br>类似下面的情况</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;./src/index.js&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;deps&quot;</span>: &#123; <span class="string">&quot;./add.js&quot;</span>: <span class="string">&quot;./src/add.js&quot;</span> &#125;,</span><br><span class="line">    <span class="string">&quot;code&quot;</span>: <span class="string">&quot;.....&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;./src/add.js&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;deps&quot;</span>: &#123;&#125;,</span><br><span class="line">    <span class="string">&quot;code&quot;</span>: <span class="string">&quot;......&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外，由于大多数前端程序都习惯使用es6语法所以还需要预先将es6语法转换为es5语法<br>总结一下思路，webpack打包可以分为以下三个步骤：</p>
+<ul>
+<li>分析依赖  </li>
+<li>ES6转ES5  </li>
+<li>替换exports和require  </li>
+</ul>
+<p>1.4 功能实现<br>我们的目标是将以下两个个互相依赖的ES6Module打包为一个可以在浏览器中运行的一个JS文件(bundle.js)</p>
+<ul>
+<li>处理模块化  </li>
+<li>多模块合并打包 - 优化网络请求  </li>
+</ul>
+<p><strong>/src/add.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (a, b) =&gt; a + b </span><br></pre></td></tr></table></figure>
+<p><strong>/src/index.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> add <span class="keyword">from</span> <span class="string">&quot;./add.js&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span> , <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<p>1.5 分析模块<br>分析模块分为以下三个步骤：</p>
+<p>模块的分析相当于对读取的文件代码字符串进行解析,这一步其实和高级语言的编译过程一致,需要将模块解析为抽象语法树AST,我们借助babel/parser来完成</p>
+<blockquote>
+<p>AST （Abstract Syntax Tree）抽象语法树 在计算机科学中，或简称语法树（Syntax tree），是源代码语法结构的一种抽象表示。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。（ <a target="_blank" rel="noopener" href="https://astexplorer.net/%EF%BC%89">https://astexplorer.net/）</a></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yarn add @babel/parser</span><br><span class="line">yarn add @babel/traverse</span><br><span class="line">yarn add @babel/core</span><br><span class="line">yarn add @babel/preset-env</span><br></pre></td></tr></table></figure>
+<ul>
+<li>读取文件</li>
+<li>收集依赖</li>
+<li>编译与AST解析</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> parser = <span class="built_in">require</span>(<span class="string">&quot;@babel/parser&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> traverse = <span class="built_in">require</span>(<span class="string">&quot;@babel/traverse&quot;</span>).default;</span><br><span class="line"><span class="keyword">const</span> babel = <span class="built_in">require</span>(<span class="string">&quot;@babel/core&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getModuleInfo</span>(<span class="params">file</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 读取文件</span></span><br><span class="line">  <span class="keyword">const</span> body = fs.readFileSync(file, <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 转化AST语法树</span></span><br><span class="line">  <span class="keyword">const</span> ast = parser.parse(body, &#123;</span><br><span class="line">    <span class="attr">sourceType</span>: <span class="string">&quot;module&quot;</span>, <span class="comment">//表示我们要解析的是ES模块</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 依赖收集</span></span><br><span class="line">  <span class="keyword">const</span> deps = &#123;&#125;;</span><br><span class="line">  traverse(ast, &#123;</span><br><span class="line">    <span class="function"><span class="title">ImportDeclaration</span>(<span class="params">&#123; node &#125;</span>)</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> dirname = path.dirname(file);</span><br><span class="line">      <span class="keyword">const</span> abspath = <span class="string">&quot;./&quot;</span> + path.join(dirname, node.source.value);</span><br><span class="line">      deps[node.source.value] = abspath;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ES6转成ES5</span></span><br><span class="line">  <span class="keyword">const</span> &#123; code &#125; = babel.transformFromAst(ast, <span class="literal">null</span>, &#123;</span><br><span class="line">    <span class="attr">presets</span>: [<span class="string">&quot;@babel/preset-env&quot;</span>],</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> moduleInfo = &#123; file, deps, code &#125;;</span><br><span class="line">  <span class="keyword">return</span> moduleInfo;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> info = getModuleInfo(<span class="string">&quot;./src/index.js&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;info:&quot;</span>, info);</span><br></pre></td></tr></table></figure>
+<p>1.6 收集依赖<br>上一步开发的函数可以单独解析某一个模块，这一步我们需要开发一个函数从入口模块开始根据依赖关系进行递归解析。最后将依赖关系构成为依赖图（Dependency Graph）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模块解析</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>file </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns </span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseModules</span>(<span class="params">file</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> entry = getModuleInfo(file);</span><br><span class="line">  <span class="keyword">const</span> temp = [entry];</span><br><span class="line">  <span class="keyword">const</span> depsGraph = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  getDeps(temp, entry);</span><br><span class="line"></span><br><span class="line">  temp.forEach(<span class="function">(<span class="params">moduleInfo</span>) =&gt;</span> &#123;</span><br><span class="line">    depsGraph[moduleInfo.file] = &#123;</span><br><span class="line">      <span class="attr">deps</span>: moduleInfo.deps,</span><br><span class="line">      <span class="attr">code</span>: moduleInfo.code,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> depsGraph;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取依赖</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>temp </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>param1 </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getDeps</span>(<span class="params">temp, &#123; deps &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Object</span>.keys(deps).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> child = getModuleInfo(deps[key]);</span><br><span class="line">    temp.push(child);</span><br><span class="line">    getDeps(temp, child);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.7 生成bundle文件<br>这一步我们需要将刚才编写的执行函数和依赖图合成起来输出最后的打包文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bundle</span>(<span class="params">file</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> depsGraph = <span class="built_in">JSON</span>.stringify(parseModules(file));</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`(function (graph) &#123;</span></span><br><span class="line"><span class="string">        function require(file) &#123;</span></span><br><span class="line"><span class="string">            function absRequire(relPath) &#123;</span></span><br><span class="line"><span class="string">                return require(graph[file].deps[relPath])</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            var exports = &#123;&#125;;</span></span><br><span class="line"><span class="string">            (function (require,exports,code) &#123;</span></span><br><span class="line"><span class="string">                eval(code)</span></span><br><span class="line"><span class="string">            &#125;)(absRequire,exports,graph[file].code)</span></span><br><span class="line"><span class="string">            return exports</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        require(&#x27;<span class="subst">$&#123;file&#125;</span>&#x27;)</span></span><br><span class="line"><span class="string">    &#125;)(<span class="subst">$&#123;depsGraph&#125;</span>)`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">!fs.existsSync(<span class="string">&quot;./dist&quot;</span>) &amp;&amp; fs.mkdirSync(<span class="string">&quot;./dist&quot;</span>);</span><br><span class="line">fs.writeFileSync(<span class="string">&quot;./dist/bundle.js&quot;</span>, content);</span><br></pre></td></tr></table></figure>
+<p>最后将打包的js文件引入测试一下即可</p>
+
+      
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">webpack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/31/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-总结Vue一些代码规范" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -250,7 +383,7 @@
   
 
         <!-- <div align="center" class="post-count">
-          字数：800字 | 预计阅读时长：3分钟
+          字数：803字 | 预计阅读时长：3分钟
         </div> -->
         <!--显示阅读次数-->
   <!--  -->
@@ -274,23 +407,23 @@
 <li>kebab-case（短横线连接式）</li>
 <li>Snake（下划线连接式）</li>
 </ul>
-<p>1.1 项目名<br>全部采用小写方式， 以短横线分隔。例：my-project-name<br>1.2 目录名<br>参照项目命名规则，有复数结构时，要采用复数命名法。例：docs、assets、components、directives、mixins、utils、views</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">my-project-name/</span><br><span class="line">|- BuildScript // 流水线部署文件目录</span><br><span class="line">|- docs // 项目的细化文档目录（可选）</span><br><span class="line">|- nginx // 部署在容器上前端项目 nginx 代理文件目录</span><br><span class="line">|- node_modules // 下载的依赖包</span><br><span class="line">|- public         // 静态页面目录</span><br><span class="line">    |- index.html // 项目入口</span><br><span class="line">|- src // 源码目录</span><br><span class="line">    |- api // http 请求目录</span><br><span class="line">    |- assets // 静态资源目录，这里的资源会被wabpack构建</span><br><span class="line">        |- icon // icon 存放目录</span><br><span class="line">        |- img // 图片存放目录</span><br><span class="line">        |- js // 公共 js 文件目录</span><br><span class="line">        |- scss // 公共样式 scss 存放目录</span><br><span class="line">            |- frame.scss // 入口文件</span><br><span class="line">            |- global.scss // 公共样式</span><br><span class="line">            |- reset.scss // 重置样式</span><br><span class="line">    |- components // 组件</span><br><span class="line">    |- plugins // 插件</span><br><span class="line">    |- router // 路由</span><br><span class="line">    |- routes // 详细的路由拆分目录（可选）</span><br><span class="line">        |- index.js</span><br><span class="line">    |- store // 全局状态管理</span><br><span class="line">    |- utils // 工具存放目录</span><br><span class="line">        |- request.js // 公共请求工具</span><br><span class="line">    |- views // 页面存放目录</span><br><span class="line">    |- App.vue // 根组件</span><br><span class="line">    |- main.js // 入口文件</span><br><span class="line">    |- tests // 测试用例</span><br><span class="line">    |- .browserslistrc// 浏览器兼容配置文件</span><br><span class="line">    |- .editorconfig // 编辑器配置文件</span><br><span class="line">    |- .eslintignore // eslint 忽略规则</span><br><span class="line">    |- .eslintrc.js // eslint 规则</span><br><span class="line">    |- .gitignore // git 忽略规则</span><br><span class="line">    |- babel.config.js // babel 规则</span><br><span class="line">    |- Dockerfile // Docker 部署文件</span><br><span class="line">    |- jest.config.js</span><br><span class="line">    |- package-lock.json</span><br><span class="line">    |- package.json // 依赖</span><br><span class="line">    |- README.md // 项目 README</span><br><span class="line">    |- vue.config.js // webpack 配置  </span><br><span class="line">```  </span><br><span class="line">1.3 图像文件名</span><br><span class="line">全部采用小写方式， 优先选择单个单词命名，多个单词命名以下划线分隔</span><br></pre></td></tr></table></figure>
-<p>banner_sina.gif<br>menu_aboutus.gif<br>menutitle_news.gif<br>logo_police.gif<br>logo_national.gif<br>pic_people.jpg<br>pic_TV.jpg  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.4 HTML 文件名</span><br><span class="line">全部采用小写方式， 优先选择单个单词命名，多个单词命名以下划线分隔</span><br></pre></td></tr></table></figure>
-<p>|- error_report.html<br>|- success_report.html  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.5 CSS 文件名</span><br><span class="line">全部采用小写方式， 优先选择单个单词命名，多个单词命名以短横线分隔</span><br></pre></td></tr></table></figure>
-<p>|- normalize.less<br>|- base.less<br>|- date-picker.scss<br>|- input-number.scss  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.6 JavaScript 文件名</span><br><span class="line">全部采用小写方式， 优先选择单个单词命名，多个单词命名以短横线分隔</span><br></pre></td></tr></table></figure>
-<p>|- index.js<br>|- plugin.js<br>|- util.js<br>|- date-util.js<br>|- account-model.js<br>|- collapse-transition.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.7 Vue 单文件组件命名</span><br><span class="line">文件扩展名为 .vue 的 single-file components (单文件组件)。单文件组件名应该始终是单词大写开头 (PascalCase)</span><br></pre></td></tr></table></figure>
-<p>components/<br>|- MyComponent.vue  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.8 Vue 单例组件名</span><br><span class="line">**只拥有单个活跃实例的组件应该以 The 前缀命名，以示其唯一性**</span><br><span class="line">这不意味着组件只可用于一个单页面，而是每个页面只使用一次。这些组件永远不接受任何 prop，因为它们是为你的应用定制的。如果你发现有必要添加 prop，那就表明这实际上是一个可复用的组件，只是目前在每个页面里只使用一次</span><br><span class="line"></span><br><span class="line">比如，头部和侧边栏组件几乎在每个页面都会使用，不接受 prop，该组件是专门为该应用所定制的</span><br></pre></td></tr></table></figure>
-<p>components/<br>|- TheHeading.vue<br>|- TheSidebar.vue  </p>
-<pre><code>
-### 闲暇时间会持续更新
-</code></pre>
+<p>1.1 项目名<br>全部采用小写方式， 以短横线分隔。例：my-project-name<br>1.2 目录名<br>参照项目命名规则，有复数结构时，要采用复数命名法。例：docs、assets、components、directives、mixins、utils、views  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">my-project-name/</span><br><span class="line">|- BuildScript <span class="comment">// 流水线部署文件目录</span></span><br><span class="line">|- docs <span class="comment">// 项目的细化文档目录（可选）</span></span><br><span class="line">|- nginx <span class="comment">// 部署在容器上前端项目 nginx 代理文件目录</span></span><br><span class="line">|- node_modules <span class="comment">// 下载的依赖包</span></span><br><span class="line">|- public         <span class="comment">// 静态页面目录</span></span><br><span class="line">    |- index.html <span class="comment">// 项目入口</span></span><br><span class="line">|- src <span class="comment">// 源码目录</span></span><br><span class="line">    |- api <span class="comment">// http 请求目录</span></span><br><span class="line">    |- assets <span class="comment">// 静态资源目录，这里的资源会被wabpack构建</span></span><br><span class="line">        |- icon <span class="comment">// icon 存放目录</span></span><br><span class="line">        |- img <span class="comment">// 图片存放目录</span></span><br><span class="line">        |- js <span class="comment">// 公共 js 文件目录</span></span><br><span class="line">        |- scss <span class="comment">// 公共样式 scss 存放目录</span></span><br><span class="line">            |- frame.scss <span class="comment">// 入口文件</span></span><br><span class="line">            |- <span class="built_in">global</span>.scss <span class="comment">// 公共样式</span></span><br><span class="line">            |- reset.scss <span class="comment">// 重置样式</span></span><br><span class="line">    |- components <span class="comment">// 组件</span></span><br><span class="line">    |- plugins <span class="comment">// 插件</span></span><br><span class="line">    |- router <span class="comment">// 路由</span></span><br><span class="line">    |- routes <span class="comment">// 详细的路由拆分目录（可选）</span></span><br><span class="line">        |- index.js</span><br><span class="line">    |- store <span class="comment">// 全局状态管理</span></span><br><span class="line">    |- utils <span class="comment">// 工具存放目录</span></span><br><span class="line">        |- request.js <span class="comment">// 公共请求工具</span></span><br><span class="line">    |- views <span class="comment">// 页面存放目录</span></span><br><span class="line">    |- App.vue <span class="comment">// 根组件</span></span><br><span class="line">    |- main.js <span class="comment">// 入口文件</span></span><br><span class="line">    |- tests <span class="comment">// 测试用例</span></span><br><span class="line">    |- .browserslistrc<span class="comment">// 浏览器兼容配置文件</span></span><br><span class="line">    |- .editorconfig <span class="comment">// 编辑器配置文件</span></span><br><span class="line">    |- .eslintignore <span class="comment">// eslint 忽略规则</span></span><br><span class="line">    |- .eslintrc.js <span class="comment">// eslint 规则</span></span><br><span class="line">    |- .gitignore <span class="comment">// git 忽略规则</span></span><br><span class="line">    |- babel.config.js <span class="comment">// babel 规则</span></span><br><span class="line">    |- Dockerfile <span class="comment">// Docker 部署文件</span></span><br><span class="line">    |- jest.config.js</span><br><span class="line">    |- package-lock.json</span><br><span class="line">    |- package.json <span class="comment">// 依赖</span></span><br><span class="line">    |- README.md <span class="comment">// 项目 README</span></span><br><span class="line">    |- vue.config.js <span class="comment">// webpack 配置  </span></span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<p>1.3 图像文件名<br>全部采用小写方式， 优先选择单个单词命名，多个单词命名以下划线分隔  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">banner_sina.gif</span><br><span class="line">menu_aboutus.gif</span><br><span class="line">menutitle_news.gif</span><br><span class="line">logo_police.gif</span><br><span class="line">logo_national.gif</span><br><span class="line">pic_people.jpg</span><br><span class="line">pic_TV.jpg  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>1.4 HTML 文件名<br>全部采用小写方式， 优先选择单个单词命名，多个单词命名以下划线分隔  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">|- error_report.html</span><br><span class="line">|- success_report.html  </span><br></pre></td></tr></table></figure>
+<p>1.5 CSS 文件名<br>全部采用小写方式， 优先选择单个单词命名，多个单词命名以短横线分隔  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|- normalize.less</span><br><span class="line">|- base.less</span><br><span class="line">|- date-picker.scss</span><br><span class="line">|- input-number.scss  </span><br></pre></td></tr></table></figure>
+<p>1.6 JavaScript 文件名<br>全部采用小写方式， 优先选择单个单词命名，多个单词命名以短横线分隔  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|- index.js</span><br><span class="line">|- plugin.js</span><br><span class="line">|- util.js</span><br><span class="line">|- date-util.js</span><br><span class="line">|- account-model.js</span><br><span class="line">|- collapse-transition.js</span><br></pre></td></tr></table></figure>
+<p>1.7 Vue 单文件组件命名<br>文件扩展名为 .vue 的 single-file components (单文件组件)。单文件组件名应该始终是单词大写开头 (PascalCase)  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">components/</span><br><span class="line">|- MyComponent.vue  </span><br></pre></td></tr></table></figure>
+<p>1.8 Vue 单例组件名<br><strong>只拥有单个活跃实例的组件应该以 The 前缀命名，以示其唯一性</strong><br>这不意味着组件只可用于一个单页面，而是每个页面只使用一次。这些组件永远不接受任何 prop，因为它们是为你的应用定制的。如果你发现有必要添加 prop，那就表明这实际上是一个可复用的组件，只是目前在每个页面里只使用一次</p>
+<p>比如，头部和侧边栏组件几乎在每个页面都会使用，不接受 prop，该组件是专门为该应用所定制的  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">components/</span><br><span class="line">|- TheHeading.vue</span><br><span class="line">|- TheSidebar.vue  </span><br></pre></td></tr></table></figure>
 
+<h3 id="闲暇时间会持续更新"><a href="#闲暇时间会持续更新" class="headerlink" title="闲暇时间会持续更新"></a>闲暇时间会持续更新</h3>
       
       
       
@@ -979,104 +1112,10 @@ git config --global --unset https.proxy
 
 
   
-    <article id="post-git查看配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/21/git%E6%9F%A5%E7%9C%8B%E9%85%8D%E7%BD%AE/">git查看配置信息</a>
-    </h1>
-  
-
-        <!-- <div align="center" class="post-count">
-          字数：142字 | 预计阅读时长：1分钟
-        </div> -->
-        <!--显示阅读次数-->
-  <!--  -->
-<!--显示阅读次数完毕-->
-        
-        
-
-<a href="/2020/07/21/git%E6%9F%A5%E7%9C%8B%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-	
-  	<time datetime="2020-07-21T12:11:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <span id="more"></span>
-
-<p>config 配置指令</p>
-<pre><code>git config
-</code></pre>
-<p>config 配置有system级别、global（用户级别）、和local（当前仓库）三个。 设置先从system-&gt;global-&gt;local 底层配置会覆盖顶层配置。分别使用–system/global/local 可以定位到配置文件</p>
-<p>查看系统config</p>
-<pre><code>git config --system --list
-</code></pre>
-<p>查看当前用户（global）配置</p>
-<pre><code>git config --global  --list
-</code></pre>
-<p>查看当前仓库配置信息</p>
-<pre><code>git config --local  --list
-</code></pre>
-<p>如果需要手动设置用户的email和用户名,则可以使用如下指令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;username&quot;</span><br><span class="line">git config --global user.email  &quot;useremail@gmail.com&quot;</span><br></pre></td></tr></table></figure>
-      
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">git config</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/21/git%E6%9F%A5%E7%9C%8B%E9%85%8D%E7%BD%AE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
@@ -1196,6 +1235,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">vue vue-router</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">webpack</a>
               </li>
              
               <li class="article-tag-list-item">
