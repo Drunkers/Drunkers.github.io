@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Github+hxeo搭建博客 | Drunker&#39;s Blog</title>
+  <title>Flex布局 | Drunker&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="顺带主题更换">
+  <meta name="description" content="一、Flex布局是什么？Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Github+hxeo搭建博客">
-<meta property="og:url" content="http://example.com/2020/07/24/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:title" content="Flex布局">
+<meta property="og:url" content="http://example.com/2020/08/08/Flex%E5%B8%83%E5%B1%80/index.html">
 <meta property="og:site_name" content="Drunker&#39;s Blog">
-<meta property="og:description" content="顺带主题更换">
+<meta property="og:description" content="一、Flex布局是什么？Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-24T12:11:26.000Z">
-<meta property="article:modified_time" content="2021-07-23T09:58:43.165Z">
+<meta property="og:image" content="http://example.com/2020/08/08/Flex%E5%B8%83%E5%B1%80/Flex%E5%B8%83%E5%B1%80.png">
+<meta property="og:image" content="http://example.com/2020/08/08/Flex%E5%B8%83%E5%B1%80/flex-direction.png">
+<meta property="article:published_time" content="2020-08-08T08:35:45.000Z">
+<meta property="article:modified_time" content="2021-08-08T10:33:25.094Z">
 <meta property="article:author" content="Drunker">
-<meta property="article:tag" content="Github，hexo">
+<meta property="article:tag" content="CSS Flex">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/08/08/Flex%E5%B8%83%E5%B1%80/Flex%E5%B8%83%E5%B1%80.png">
   
     <link rel="alternative" href="/atom.xml" title="Drunker&#39;s Blog" type="application/atom+xml">
   
@@ -156,19 +159,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-搭建博客" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Flex布局" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Github+hxeo搭建博客
+      Flex布局
     </h1>
   
 
         <!-- <div align="center" class="post-count">
-          字数：1.3k字 | 预计阅读时长：5分钟
+          字数：497字 | 预计阅读时长：1分钟
         </div> -->
         <!--显示阅读次数-->
   <!-- 
@@ -191,56 +194,48 @@
 	</span>
 
 
-<a href="/2020/07/24/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
+<a href="/2020/08/08/Flex%E5%B8%83%E5%B1%80/" class="archive-article-date">
 	
-  	<time datetime="2020-07-24T12:11:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-24</time>
+  	<time datetime="2020-08-08T08:35:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="顺带主题更换"><a href="#顺带主题更换" class="headerlink" title="顺带主题更换"></a>顺带主题更换</h3><span id="more"></span>
-<p> 本来这博客搭建有一段时间了，但是因为部署在GitHub上，所以有时候会遇到访问速度过慢，页面404的问题，所以打算迁移到国内码云，但是在迁移的时候操作不当，导致之前的仓库被误删，大部分内容丢失:joy:，所以这里补上一期，针对windows用户。</p>
-<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是大神Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。在这里我们主要用它来实现把本地的hexo内容提交到github也就是我们的博客上去。你可以选择<a target="_blank" rel="noopener" href="http://git-scm.com/download/win/">git官网</a>或者<a target="_blank" rel="noopener" href="https://github.com/waylau/git-for-win/">git国内下载站</a>下载  </p>
-<h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>由于hexo是基于Node.js的博客程序，所以安装<a target="_blank" rel="noopener" href="http://nodejs.cn/">Node.js</a>是必须的。可以参考此教程来安装。</p>
-<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><p>完成以上步骤之后，可以开始我们的hexo安装。在此我建议新建一个文件夹blog来存放关于博客相关的内容和hexo装文件。在这个文件夹下右键git bash，用以下命令安装hexo.<br><code>$ npm install hexo-cli -g</code><br>在blog文件夹下面创建hexo文件夹，在这使用以下命令初始化博客搭建所需的所有文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
-<p>安装依赖包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<p>在当前文件夹执行以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
+        <h3 id="一、Flex布局是什么？"><a href="#一、Flex布局是什么？" class="headerlink" title="一、Flex布局是什么？"></a>一、Flex布局是什么？</h3><p>Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 </p>
+<span id="more"></span>  
+<p>任何一个容器都可以指定为Flex布局</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">  <span class="attr">display</span>: flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>行内元素也可以使用Flex布局。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">  <span class="attr">display</span>: inline-flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Webkit内核的浏览器，必须加上-webkit前缀。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">  <span class="attr">display</span>: -webkit-flex; <span class="comment">/* Safari */</span></span><br><span class="line">  display: flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意，设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。</strong>  </p>
+<h3 id="二、基本概念"><a href="#二、基本概念" class="headerlink" title="二、基本概念"></a>二、基本概念</h3><p>采用Flex布局的元素，称为Flex容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称”项目”。  </p>
+<img src="/2020/08/08/Flex%E5%B8%83%E5%B1%80/Flex%E5%B8%83%E5%B1%80.png" class="" title="Flex布局">  
 
-<p>如果一切顺利的话，在浏览器输入<code>http://localhost:4000/</code>,就可以看到hexo生成的本地博客，</p>
-<h3 id="注册Github"><a href="#注册Github" class="headerlink" title="注册Github"></a>注册Github</h3><p>如果你已经有<a target="_blank" rel="noopener" href="https://github.com/">github</a>账号，可以跳过此步骤。</p>
-<h3 id="创建repository"><a href="#创建repository" class="headerlink" title="创建repository"></a>创建repository</h3><p>repository是你的个人仓库，你可以往里面放你的项目代码，在这里我们新建一个repository。</p>
-<p>  仓库名必须为<code>GitHubusername.github.io</code>这种格式，这样可以方便github解析你的博客地址。之后点击箭头所指的按钮生成repository.</p>
-<h2 id="连接本地git与github"><a href="#连接本地git与github" class="headerlink" title="连接本地git与github"></a>连接本地git与github</h2><h3 id="配置Git"><a href="#配置Git" class="headerlink" title="配置Git"></a>配置Git</h3><p>  首先在本地创建ssh key；<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</span><br></pre></td></tr></table></figure><br>后面的<a href="mailto:&#121;&#111;&#117;&#114;&#x5f;&#101;&#x6d;&#97;&#x69;&#108;&#64;&#x79;&#111;&#x75;&#x72;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#121;&#111;&#117;&#114;&#x5f;&#101;&#x6d;&#97;&#x69;&#108;&#64;&#x79;&#111;&#x75;&#x72;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a>改为你的邮箱，之后会要求确认路径和输入密码，我们这使用默认的一路回车就行。成功的话会在~/下生成.ssh文件夹，进去，打开id_rsa.pub，复制里面的key。</p>
-<p>回到github，进入Settings,左边选择SSH Keys，new SSH Key,title随便填，粘贴key。</p>
-
-
-<p>为了验证是否成功，右键git bash输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>如果是第一次的会提示是否<code>continue</code>，输入yes就会看到：<code>You’ve successfully authenticated, but GitHub does not provide shell access</code>。这就表示已成功连上github。<br>接下来我们要做的就是把本地仓库传到github上去，在此之前还需要设置username和email，因为github每次commit都会记录他们。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;your name&quot;  </span><br><span class="line">$ git config --global user.email &quot;your_email@youremail.com&quot;</span><br></pre></td></tr></table></figure>
-<p>在这里填写你们的github邮箱就好。</p>
-<h3 id="将本地博客文件上传到github"><a href="#将本地博客文件上传到github" class="headerlink" title="将本地博客文件上传到github"></a>将本地博客文件上传到github</h3><p>在上一步，我们创建了博客代码所需的仓库，并且建立了本地git和github的链接。现在当然是要把本地的博客代码上传到仓库里面。编辑hexo文件夹路径下的<code>_config.yml</code>文件。在这个文件末尾添加以下代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy: </span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/Drunkers/Drunkers.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>  注意，<code>Drunkers</code>应该替换为你自己的用户名。配置好<code>_config.yml</code>并保存后，执行以下命令部署到Github上。<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure><br>如果这个时候出现<code>ERROR Deployer not found : github</code>,可以试试输入以下代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-<p>执行完以上步骤之后，如果一切顺利的话，博客就应该已经顺利的发布在github上了，可以通过<code>username.github.io</code>直接访问。</p>
-<h2 id="发布一篇文章"><a href="#发布一篇文章" class="headerlink" title="发布一篇文章"></a>发布一篇文章</h2><p>1.在博客根目录下打开Git Bash执行命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new &quot;my new post&quot;</span><br></pre></td></tr></table></figure>
-<p>2.在hexo\source_post中打开my-new-post.md，建议使用notepad++或editplus。<br>hexo中写文章使用的是Markdown，没接触过的可以看下<a target="_blank" rel="noopener" href="http://sspai.com/25137">Markdown相关教程</a>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: my new post #可以改成中文或者其他的，如“第一篇博客”</span><br><span class="line">date: 2020-07-22 19:33:40 #发表日期，一般不改动</span><br><span class="line">categories: blog #文章文类</span><br><span class="line">tags: [博客，文章] #文章标签，不同主题对于不同的标签的分类不太一样，这一点我正在研究</span><br><span class="line">---</span><br><span class="line">#这里是正文，用markdown写，你可以选择写一段显示在首页的简介后，加上</span><br><span class="line">&lt;!--more--&gt;，在&lt;!--more--&gt;之前的内容会显示在首页，之后的内容会被隐藏，当游客点击Read more才能看到。</span><br></pre></td></tr></table></figure>
-<h2 id="主题更换"><a href="#主题更换" class="headerlink" title="主题更换"></a>主题更换</h2><h4 id="主题下载并启用"><a href="#主题下载并启用" class="headerlink" title="主题下载并启用"></a>主题下载并启用</h4><p>进入命令行，下载yilia主题到你theme文件夹下，输入：</p>
-<pre><code>git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia
-</code></pre>
-<p>修改站点配置文件 _config.yml，找到如下代码：</p>
-<pre><code>Themes: https://hexo.io/themes/
-theme: landscape
-</code></pre>
-<p>将 landscape 修改为yilia即可，然后执行<code>hexo g</code>重新渲染一次即可</p>
+<p>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。 </p>
+<p>项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。  </p>
+<h3 id="三、容器的属性"><a href="#三、容器的属性" class="headerlink" title="三、容器的属性"></a>三、容器的属性</h3><p>以下6个属性设置在<strong>容器</strong>上。</p>
+<blockquote>
+<p>flex-direction<br>flex-wrap<br>flex-flow<br>justify-content<br>align-items<br>align-content  </p>
+</blockquote>
+<h4 id="3-1-flex-direction属性"><a href="#3-1-flex-direction属性" class="headerlink" title="3.1 flex-direction属性"></a>3.1 flex-direction属性</h4><p>flex-direction属性决定主轴的方向（即项目的排列方向）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: column-reverse | column |row | row-reverse; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="/2020/08/08/Flex%E5%B8%83%E5%B1%80/flex-direction.png" class="" title="Flex-direction">  
+<ul>
+<li>row（默认值）：主轴为水平方向，起点在左端。</li>
+<li>row-reverse：主轴为水平方向，起点在右端。</li>
+<li>column：主轴为垂直方向，起点在上沿。</li>
+<li>column-reverse：主轴为垂直方向，起点在下沿。  <h3 id="四、项目的属性"><a href="#四、项目的属性" class="headerlink" title="四、项目的属性"></a>四、项目的属性</h3>以下6个属性设置在项目上。<blockquote>
+<p>order<br>flex-grow<br>flex-shrink<br>flex-basis<br>flex<br>align-self  </p>
+</blockquote>
+</li>
+</ul>
+<h4 id="4-1-order属性"><a href="#4-1-order属性" class="headerlink" title="4.1 order属性"></a>4.1 order属性</h4><p>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  <span class="attr">order</span>: &lt;integer&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里不做过多描述，因为实际中不会每个属性都用到，可在实践中多摸索，这里贴一下自己写得demo<br><a target="_blank" rel="noopener" href="https://gitee.com/drunkers/notes.git">Flex布局</a></p>
 
       
       
@@ -254,7 +249,7 @@ theme: landscape
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github，hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CSS Flex</a>
         		</li>
       		
 		</ul>
@@ -310,7 +305,7 @@ theme: landscape
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/07/24/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/08/08/Flex%E5%B8%83%E5%B1%80/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -324,18 +319,18 @@ theme: landscape
   
 <nav id="article-nav">
   
-    <a href="/2020/07/25/%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/08/08/Grid%E5%B8%83%E5%B1%80/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          图片上传问题
+          Grid布局
         
       </div>
     </a>
   
   
-    <a href="/2020/07/23/SSH%E5%AF%86%E9%92%A5/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Github SSH密钥</div>
+    <a href="/2020/08/07/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">js执行机制</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -362,7 +357,7 @@ theme: landscape
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%BA%E5%B8%A6%E4%B8%BB%E9%A2%98%E6%9B%B4%E6%8D%A2"><span class="toc-number">1.</span> <span class="toc-text">顺带主题更换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="toc-number"></span> <span class="toc-text">配置环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85git"><span class="toc-number">1.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Node-js"><span class="toc-number">2.</span> <span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85hexo"><span class="toc-number">3.</span> <span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8CGithub"><span class="toc-number">4.</span> <span class="toc-text">注册Github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BArepository"><span class="toc-number">5.</span> <span class="toc-text">创建repository</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%9C%AC%E5%9C%B0git%E4%B8%8Egithub"><span class="toc-number"></span> <span class="toc-text">连接本地git与github</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEGit"><span class="toc-number">1.</span> <span class="toc-text">配置Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E6%9C%AC%E5%9C%B0%E5%8D%9A%E5%AE%A2%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%B0github"><span class="toc-number">2.</span> <span class="toc-text">将本地博客文件上传到github</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0"><span class="toc-number"></span> <span class="toc-text">发布一篇文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E6%9B%B4%E6%8D%A2"><span class="toc-number"></span> <span class="toc-text">主题更换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%90%AF%E7%94%A8"><span class="toc-number">0.1.</span> <span class="toc-text">主题下载并启用</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81Flex%E5%B8%83%E5%B1%80%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">一、Flex布局是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text">二、基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">三、容器的属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-flex-direction%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 flex-direction属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">四、项目的属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-order%E5%B1%9E%E6%80%A7"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 order属性</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
