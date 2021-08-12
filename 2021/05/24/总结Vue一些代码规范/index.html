@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2020 | Drunker&#39;s Blog</title>
+  <title>总结Vue一些代码规范 | Drunker&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Drunker&#39;s Blog">
-<meta property="og:url" content="http://example.com/archives/2020/page/2/index.html">
+  <meta name="description" content="Vue代码规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="总结Vue一些代码规范">
+<meta property="og:url" content="http://example.com/2021/05/24/%E6%80%BB%E7%BB%93Vue%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/index.html">
 <meta property="og:site_name" content="Drunker&#39;s Blog">
+<meta property="og:description" content="Vue代码规范">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-24T13:37:14.000Z">
+<meta property="article:modified_time" content="2021-08-12T12:47:37.753Z">
 <meta property="article:author" content="Drunker">
+<meta property="article:tag" content="Vue 代码规范">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Drunker&#39;s Blog" type="application/atom+xml">
@@ -151,189 +156,226 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-总结Vue一些代码规范" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      总结Vue一些代码规范
+    </h1>
+  
+
+        <!-- <div align="center" class="post-count">
+          字数：1.5k字 | 预计阅读时长：8分钟
+        </div> -->
+        <!--显示阅读次数-->
+  <!-- 
+   <br/>
+    <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+    <span class="icon-sort"></span>
+    <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px; vertical-align: auto;">
+    阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+    </span>
+  </a>
+ -->
+<!--显示阅读次数完毕-->
+        
+        
+	<!-- 不蒜子统计 -->
+	<span id="busuanzi_container_page_pv" class="archive-article-date">
+		  <i class="icon-smile icon" style="vertical-align: middle;" ></i> 
+		  阅读数：
+		  <span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+
+<a href="/2021/05/24/%E6%80%BB%E7%BB%93Vue%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="archive-article-date">
+	
+  	<time datetime="2021-05-24T13:37:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-24</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  Vue代码规范</p>
+<span id="more"></span>
+<p>1.1 代码结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;my-component&quot;&gt;</span><br><span class="line">    &lt;DemoComponent /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import DemoComponent from &#x27;../components/DemoComponent&#x27;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;MyComponent&#x27;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    DemoComponent</span><br><span class="line">  &#125;,</span><br><span class="line">  mixins: [],</span><br><span class="line">  props: &#123;&#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;&#125;,</span><br><span class="line">  watch: &#123;&#125;</span><br><span class="line">  created () &#123;&#125;,</span><br><span class="line">  mounted () &#123;&#125;,</span><br><span class="line">  destroyed () &#123;&#125;,</span><br><span class="line">  methods: &#123;&#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang=&quot;scss&quot; scoped&gt;</span><br><span class="line">#my-component &#123;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>2.2 data<br><strong>组件的 data 必须是一个函数</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 一个Vue组件</span><br><span class="line">export default &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      foo: &#x27;bar&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.3 prop<br><strong>Prop 定义应该尽量详细</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    status: &#123;</span><br><span class="line">      type: String,</span><br><span class="line">      required: true,</span><br><span class="line">      validator: function (value) &#123;</span><br><span class="line">        return [</span><br><span class="line">          &#x27;syncing&#x27;,</span><br><span class="line">          &#x27;synced&#x27;,</span><br><span class="line">          &#x27;version-conflict&#x27;,</span><br><span class="line">          &#x27;error&#x27;</span><br><span class="line">        ].indexOf(value) !== -1</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.4 computed<br><strong>应该把复杂计算属性分割为尽可能多的更简单的属性</strong><br>小的、专注的计算属性减少了信息使用时的假设性限制，所以需求变更时也用不着那么多重构了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 例子</span><br><span class="line">computed: &#123;</span><br><span class="line">  price: function () &#123;</span><br><span class="line">    var basePrice = this.manufactureCost / (1 - this.profitMargin)</span><br><span class="line">    return (</span><br><span class="line">      basePrice -</span><br><span class="line">      basePrice * (this.discountPercent || 0)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 优化的例子</span><br><span class="line">computed: &#123;</span><br><span class="line">  basePrice: function () &#123;</span><br><span class="line">    return this.manufactureCost / (1 - this.profitMargin)</span><br><span class="line">  &#125;,</span><br><span class="line">  discount: function () &#123;</span><br><span class="line">    return this.basePrice * (this.discountPercent || 0)</span><br><span class="line">  &#125;,</span><br><span class="line">  finalPrice: function () &#123;</span><br><span class="line">    return this.basePrice - this.discount</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.5 为 v-for 设置键值<br><strong>在组件上必须用 key 搭配 v-for，以便维护内部组件及其子树的状态</strong><br>甚至在元素上维护可预测的行为，比如动画中的对象固化 (object constancy)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;li</span><br><span class="line">    v-for=&quot;todo in todos&quot;</span><br><span class="line">    :key=&quot;todo.id&quot;&gt;</span><br><span class="line">      &#123;&#123; todo.text &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<p>2.6 v-if 和 v-for 互斥<br>永远不要把 v-if 和 v-for 同时用在同一个元素上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- bad：控制台报错 --&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;li</span><br><span class="line">    v-for=&quot;user in users&quot;</span><br><span class="line">    v-if=&quot;shouldShowUsers&quot;</span><br><span class="line">    :key=&quot;user.id&quot;&gt;</span><br><span class="line">      &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<p>一般我们在两种常见的情况下会倾向于这样做：</p>
+<ul>
+<li>为了过滤一个列表中的项目 (比如 v-for=”user in users” v-if=”user.isActive”)。在这种情形下，请将 users 替换为一个计算属性 (比如 activeUsers)，让其返回过滤后的列表<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  activeUsers: function () &#123;</span><br><span class="line">    return this.users.filter((user) =&gt; &#123;</span><br><span class="line">      return user.isActive</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;li</span><br><span class="line">    v-for=&quot;user in activeUsers&quot;</span><br><span class="line">    :key=&quot;user.id&quot;&gt;</span><br><span class="line">      &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure></li>
+<li>为了避免渲染本应该被隐藏的列表 (比如 v-for=”user in users” v-if=”shouldShowUsers”)。这种情形下，请将 v-if 移动至容器元素上 (比如 ul, ol)。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- bad --&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;li</span><br><span class="line">    v-for=&quot;user in users&quot;</span><br><span class="line">    v-if=&quot;shouldShowUsers&quot;</span><br><span class="line">    :key=&quot;user.id&quot;&gt;</span><br><span class="line">      &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- good --&gt;</span><br><span class="line">&lt;ul v-if=&quot;shouldShowUsers&quot;&gt;</span><br><span class="line">  &lt;li</span><br><span class="line">    v-for=&quot;user in users&quot;</span><br><span class="line">    :key=&quot;user.id&quot;&gt;</span><br><span class="line">      &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>2.7 多个 attribute 的元素<br><strong>多个 attribute 的元素应该分多行撰写，每个 attribute 一行</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- bad --&gt;</span><br><span class="line">&lt;img src=&quot;https://vuejs.org/images/logo.png&quot; alt=&quot;Vue Logo&quot;&gt;</span><br><span class="line">&lt;MyComponent foo=&quot;a&quot; bar=&quot;b&quot; baz=&quot;c&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- good --&gt;</span><br><span class="line">&lt;img</span><br><span class="line">  src=&quot;https://vuejs.org/images/logo.png&quot;</span><br><span class="line">  alt=&quot;Vue Logo&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;MyComponent</span><br><span class="line">  foo=&quot;a&quot;</span><br><span class="line">  bar=&quot;b&quot;</span><br><span class="line">  baz=&quot;c&quot;/&gt;</span><br><span class="line">2.8 带引号的 attribute 值 </span><br><span class="line"></span><br><span class="line">**非空 HTML 特性值应该始终带双引号**  </span><br><span class="line"></span><br><span class="line">```javascript</span><br><span class="line">&lt;!-- bad --&gt;</span><br><span class="line">&lt;input type=text&gt;</span><br><span class="line">&lt;AppSidebar :style=&#123;width:sidebarWidth+&#x27;px&#x27;&#125;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- good --&gt;</span><br><span class="line">&lt;input type=&quot;text&quot;&gt;</span><br><span class="line">&lt;AppSidebar :style=&quot;&#123; width: sidebarWidth + &#x27;px&#x27; &#125;&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>2.9 指令缩写</p>
+<blockquote>
+<ul>
+<li>用 : 表示 v-bind:</li>
+<li>用 @ 表示 v-on:</li>
+<li>用 # 表示 v-slot:</li>
+</ul>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;input</span><br><span class="line">  :value=&quot;newTodoText&quot;</span><br><span class="line">  :placeholder=&quot;newTodoInstructions&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;input</span><br><span class="line">  @input=&quot;onInput&quot;</span><br><span class="line">  @focus=&quot;onFocus&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;template #header&gt;</span><br><span class="line">  &lt;h1&gt;Here might be a page title&lt;/h1&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;template #footer&gt;</span><br><span class="line">  &lt;p&gt;Here&#x27;s some contact info&lt;/p&gt;</span><br><span class="line">&lt;/template&gt;  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>增加一下HTML移动端和pc端的模板<br>1.标准版</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">  &lt;html lang=&quot;zh-CN&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;HTML5标准模版&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>2.移动端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;zh-CN&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot;</span><br><span class="line">        content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;format-detection&quot; content=&quot;telephone=no&quot;&gt;</span><br><span class="line">    &lt;title&gt;移动端HTML模版&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- S DNS预解析 --&gt;</span><br><span class="line">    &lt;link rel=&quot;dns-prefetch&quot; href=&quot;&quot;&gt;</span><br><span class="line">    &lt;!-- E DNS预解析 --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- S 线上样式页面片，开发请直接取消注释引用 --&gt;</span><br><span class="line">    &lt;!-- #include virtual=&quot;&quot; --&gt;</span><br><span class="line">    &lt;!-- E 线上样式页面片 --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- S 本地调试，根据开发模式选择调试方式，请开发删除 --&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/index.css&quot;&gt;</span><br><span class="line">    &lt;!-- /本地调试方式 --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://srcPath/index.css&quot;&gt;</span><br><span class="line">    &lt;!-- /开发机调试方式 --&gt;</span><br><span class="line">    &lt;!-- E 本地调试 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>3.pc端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;zh-CN&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;keywords&quot; content=&quot;your keywords&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;description&quot; content=&quot;your description&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;author&quot; content=&quot;author,email address&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;robots&quot; content=&quot;index,follow&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=Edge,chrome=1&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;renderer&quot; content=&quot;ie-stand&quot;&gt;</span><br><span class="line">    &lt;title&gt;PC端HTML模版&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- S DNS预解析 --&gt;</span><br><span class="line">    &lt;link rel=&quot;dns-prefetch&quot; href=&quot;&quot;&gt;</span><br><span class="line">    &lt;!-- E DNS预解析 --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- S 线上样式页面片，开发请直接取消注释引用 --&gt;</span><br><span class="line">    &lt;!-- #include virtual=&quot;&quot; --&gt;</span><br><span class="line">    &lt;!-- E 线上样式页面片 --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- S 本地调试，根据开发模式选择调试方式，请开发删除 --&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/index.css&quot;&gt;</span><br><span class="line">    &lt;!-- /本地调试方式 --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://srcPath/index.css&quot;&gt;</span><br><span class="line">    &lt;!-- /开发机调试方式 --&gt;</span><br><span class="line">    &lt;!-- E 本地调试 --&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-<a href="/2020/07/24/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-	
-  	<time datetime="2020-07-24T12:11:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/24/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">Github+hxeo搭建博客</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github，hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue 代码规范</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/05/24/%E6%80%BB%E7%BB%93Vue%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
 
-<a href="/2020/07/23/SSH%E5%AF%86%E9%92%A5/" class="archive-article-date">
-	
-  	<time datetime="2020-07-23T12:11:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-23</time>
-</a>
+  
+<nav id="article-nav">
+  
+    <a href="/2021/06/08/Flex%E5%B8%83%E5%B1%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Flex布局
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/05/22/%E6%80%BB%E7%BB%93vue%E4%B8%80%E4%BA%9B%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">总结vue一些命名规范</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/23/SSH%E5%AF%86%E9%92%A5/">Github SSH密钥</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+        
+    </div>
+</aside>
 
-<a href="/2020/07/22/git_clone%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/" class="archive-article-date">
-	
-  	<time datetime="2020-07-22T12:11:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/22/git_clone%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/">git clone https：//报错而 git clone git：//正常 处理方法</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">git clone</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-<a href="/2020/07/21/git%E6%9F%A5%E7%9C%8B%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-	
-  	<time datetime="2020-07-21T12:11:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/21/git%E6%9F%A5%E7%9C%8B%E9%85%8D%E7%BD%AE/">git查看配置信息</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">git config</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -374,8 +416,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

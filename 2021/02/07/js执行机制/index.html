@@ -6,23 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Flex布局 | Drunker&#39;s Blog</title>
+  <title>js执行机制 | Drunker&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、Flex布局是什么？Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。">
+  <meta name="description" content="我们都知道JS是单线程，任务只能一件一件地执行，那么浏览器是怎么让这么多类型的任务在主线程上有条紊地执行的呢？这就需要任务队列和事件循环了 1.任务队列(消息队列)  它是一种数据结构，存放要执行的任务。然后事件循环系统再以先进先出原则按顺序执行队列中的任务。产生新任务时IO线程就将任务添加在队列尾部，要执行任务渲染主线程就会循环地从队列头部取出执行,如果其他进程也有任务想让主线程执行的话，也是一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flex布局">
-<meta property="og:url" content="http://example.com/2020/08/08/Flex%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:title" content="js执行机制">
+<meta property="og:url" content="http://example.com/2021/02/07/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="Drunker&#39;s Blog">
-<meta property="og:description" content="一、Flex布局是什么？Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。">
+<meta property="og:description" content="我们都知道JS是单线程，任务只能一件一件地执行，那么浏览器是怎么让这么多类型的任务在主线程上有条紊地执行的呢？这就需要任务队列和事件循环了 1.任务队列(消息队列)  它是一种数据结构，存放要执行的任务。然后事件循环系统再以先进先出原则按顺序执行队列中的任务。产生新任务时IO线程就将任务添加在队列尾部，要执行任务渲染主线程就会循环地从队列头部取出执行,如果其他进程也有任务想让主线程执行的话，也是一">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2020/08/08/Flex%E5%B8%83%E5%B1%80/Flex%E5%B8%83%E5%B1%80.png">
-<meta property="og:image" content="http://example.com/2020/08/08/Flex%E5%B8%83%E5%B1%80/flex-direction.png">
-<meta property="article:published_time" content="2020-08-08T08:35:45.000Z">
-<meta property="article:modified_time" content="2021-08-08T10:33:25.094Z">
+<meta property="og:image" content="http://example.com/2021/02/07/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/js.jpg">
+<meta property="article:published_time" content="2021-02-06T18:03:15.000Z">
+<meta property="article:modified_time" content="2021-08-12T12:45:40.470Z">
 <meta property="article:author" content="Drunker">
-<meta property="article:tag" content="CSS Flex">
+<meta property="article:tag" content="JavaScript 同异步">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/08/08/Flex%E5%B8%83%E5%B1%80/Flex%E5%B8%83%E5%B1%80.png">
+<meta name="twitter:image" content="http://example.com/2021/02/07/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/js.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Drunker&#39;s Blog" type="application/atom+xml">
   
@@ -159,19 +158,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Flex布局" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-js执行机制" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Flex布局
+      js执行机制
     </h1>
   
 
         <!-- <div align="center" class="post-count">
-          字数：497字 | 预计阅读时长：1分钟
+          字数：2k字 | 预计阅读时长：7分钟
         </div> -->
         <!--显示阅读次数-->
   <!-- 
@@ -194,48 +193,88 @@
 	</span>
 
 
-<a href="/2020/08/08/Flex%E5%B8%83%E5%B1%80/" class="archive-article-date">
+<a href="/2021/02/07/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/" class="archive-article-date">
 	
-  	<time datetime="2020-08-08T08:35:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-08</time>
+  	<time datetime="2021-02-06T18:03:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="一、Flex布局是什么？"><a href="#一、Flex布局是什么？" class="headerlink" title="一、Flex布局是什么？"></a>一、Flex布局是什么？</h3><p>Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 </p>
-<span id="more"></span>  
-<p>任何一个容器都可以指定为Flex布局</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">  <span class="attr">display</span>: flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>行内元素也可以使用Flex布局。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">  <span class="attr">display</span>: inline-flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Webkit内核的浏览器，必须加上-webkit前缀。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">  <span class="attr">display</span>: -webkit-flex; <span class="comment">/* Safari */</span></span><br><span class="line">  display: flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>注意，设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。</strong>  </p>
-<h3 id="二、基本概念"><a href="#二、基本概念" class="headerlink" title="二、基本概念"></a>二、基本概念</h3><p>采用Flex布局的元素，称为Flex容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称”项目”。  </p>
-<img src="/2020/08/08/Flex%E5%B8%83%E5%B1%80/Flex%E5%B8%83%E5%B1%80.png" class="" title="Flex布局">  
-
-<p>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。 </p>
-<p>项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。  </p>
-<h3 id="三、容器的属性"><a href="#三、容器的属性" class="headerlink" title="三、容器的属性"></a>三、容器的属性</h3><p>以下6个属性设置在<strong>容器</strong>上。</p>
-<blockquote>
-<p>flex-direction<br>flex-wrap<br>flex-flow<br>justify-content<br>align-items<br>align-content  </p>
-</blockquote>
-<h4 id="3-1-flex-direction属性"><a href="#3-1-flex-direction属性" class="headerlink" title="3.1 flex-direction属性"></a>3.1 flex-direction属性</h4><p>flex-direction属性决定主轴的方向（即项目的排列方向）。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: column-reverse | column |row | row-reverse; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<img src="/2020/08/08/Flex%E5%B8%83%E5%B1%80/flex-direction.png" class="" title="Flex-direction">  
+        <p>我们都知道JS是单线程，任务只能一件一件地执行，那么浏览器是怎么让这么多类型的任务在主线程上有条紊地执行的呢？<br>这就需要<strong>任务队列</strong>和<strong>事件循环</strong>了</p>
+<h3 id="1-任务队列-消息队列"><a href="#1-任务队列-消息队列" class="headerlink" title="1.任务队列(消息队列)"></a>1.任务队列(消息队列)</h3><blockquote>
 <ul>
-<li>row（默认值）：主轴为水平方向，起点在左端。</li>
-<li>row-reverse：主轴为水平方向，起点在右端。</li>
-<li>column：主轴为垂直方向，起点在上沿。</li>
-<li>column-reverse：主轴为垂直方向，起点在下沿。  <h3 id="四、项目的属性"><a href="#四、项目的属性" class="headerlink" title="四、项目的属性"></a>四、项目的属性</h3>以下6个属性设置在项目上。<blockquote>
-<p>order<br>flex-grow<br>flex-shrink<br>flex-basis<br>flex<br>align-self  </p>
+<li>它是一种数据结构，存放要执行的任务。然后事件循环系统再以先进先出原则按顺序执行队列中的任务。产生新任务时IO线程就将任务添加在队列尾部，要执行任务渲染主线程就会循环地从队列头部取出执行,如果其他进程也有任务想让主线程执行的话，也是一样的通过 IO 线程接收并将任务添加到任务队列就可以了。</li>
+<li>可任务队列里的任务类型太多了，而且是多个线程操作同一个任务队列，比如鼠标滚动、点击、移动、输入、计时器、WebSocket、文件读写、解析DOM、计算样式、计算布局、JS执行…..</li>
+<li>这些任务都在主线程中执行，而JS是单线程的，一个任务执行需要等前面的任务都执行完，所以就需要解决单个任务占用主线程过久的问题。</li>
+<li>所以为了处理高优先级的任务，和解决单任务执行过长的问题，所以需要将任务划分，所以微任务和宏任务它来了。</li>
+<li>在说微任务之前，要知道一个概念就是<strong>同步</strong>和<strong>异步</strong></li>
+</ul>
+</blockquote>
+<h3 id="2-事件循环-EventLoop"><a href="#2-事件循环-EventLoop" class="headerlink" title="2.事件循环( EventLoop )"></a>2.事件循环( EventLoop )</h3><ul>
+<li>事件循环：一句话概括就是入栈到出栈的循环</li>
+<li>即：一个宏任务，所有微任务，渲染，一个宏任务，所有微任务，渲染…..</li>
+<li>循环过程：<blockquote>
+<ul>
+<li>所有同步任务都在主线程上依次执行，形成一个执行栈(调用栈)，异步任务处理完后则放入一个任务队列</li>
+<li>当执行栈中任务执行完，再去检查微任务队列里的微任务是否为空，有就执行，如果执行微任务过程中又遇到微任务，就添加到微任务队列末尾继续执行，把微任务全部执行完</li>
+<li>微任务执行完后，再到任务队列检查宏任务是否为空，有就取出最先进入队列的宏任务压入执行栈中执行其同步代码</li>
+<li>然后回到第2步执行该宏任务中的微任务，如此反复，直到宏任务也执行完，如此循环</li>
+</ul>
 </blockquote>
 </li>
 </ul>
-<h4 id="4-1-order属性"><a href="#4-1-order属性" class="headerlink" title="4.1 order属性"></a>4.1 order属性</h4><p>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  <span class="attr">order</span>: &lt;integer&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里不做过多描述，因为实际中不会每个属性都用到，可在实践中多摸索，这里贴一下自己写得demo<br><a target="_blank" rel="noopener" href="https://gitee.com/drunkers/notes.git">Flex布局</a></p>
+<p>如图:</p>
+<blockquote>
+<img src="/2021/02/07/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/js.jpg" class="" title="eventloop">
+</blockquote>
+<h3 id="3-同步和异步"><a href="#3-同步和异步" class="headerlink" title="3.同步和异步"></a>3.同步和异步</h3><p>我们知道了浏览器页面是由任务队列和事件循环系统来驱动的，但是队列要一个一个执行，如果某个任务(http请求)是个耗时任务，那浏览器总不能一直卡着，所以为了防止主线程阻塞，JavaScript 又分为同步任务和异步任务</p>
+<blockquote>
+<p>同步任务：就是任务一个一个执行，如果某个任务执行时间过长，后面的就只能一直等下去<br>异步任务：就是进程在执行某个任务时，该任务需要等一段时间才能返回，这时候就把这个任务放到专门处理异步任务的模块，然后继续往下执行，不会因为这个任务而阻塞  </p>
+</blockquote>
+<p><strong>也就是说，除了任务队列，还有一个专门处理需要延迟执行的模块(也称为延迟哈希表)</strong></p>
+<p><strong>常见的异步任务</strong>：定时器、ajax、事件绑定、回调函数、async await、promise  </p>
+<h3 id="4-微任务和宏任务"><a href="#4-微任务和宏任务" class="headerlink" title="4.微任务和宏任务"></a>4.微任务和宏任务</h3><p>JS执行时，浏览器V8会创建一个全局执行上下代码，同时，V8也会在内部创建一个微任务队列。<br>有微任务队列，自然就有宏任务队列，<strong>任务队列中的每一个任务则都称为宏任务，在当前宏任务执行过程中，如果有新的微任务产生，就添加到微任务队列中</strong></p>
+<blockquote>
+<p>微任务： 可以把微任务看成是一个需要异步执行的函数，<strong>执行时机是在主函数执行结束之后、当前宏任务结束之前</strong><br> 包括promise.then、proxy、MutationObserver(监听DOM)、node 中的 process.nextTick等<br>宏任务：是指消息队列中的等待被主线程执行的事件，宏任务执行时都会重新创建栈，然后调用宏任务中的函数，栈也会随着变化，但宏任务执行结束时，栈也会随之销毁。包括渲染事件、请求、script、setTimeout、setInterval、Node中的setImmediate、I/O 等</p>
+</blockquote>
+<h4 id="4-1-区别"><a href="#4-1-区别" class="headerlink" title="4.1 区别"></a>4.1 区别</h4><ul>
+<li>宏任务和微任务的区别在于在事件循环机制中，执行的机制不同。</li>
+<li>每次执行完所有的同步任务后，会从任务队列中取出异步任务，先将所有微任务执行完成后，才会执行宏任务。</li>
+<li>所以可以得出结论， 微任务会在宏任务之前执行。</li>
+<li>我们在工作常用到的宏任务是 setTimeout，而微任务是 Promise.then。</li>
+<li>注意这里是Promise.then,也就是说 new Promise在实例化的过程中所执行的代码是同步的，而在then中注册的回调函数才是异步。</li>
+</ul>
+<p>简单例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++ ) &#123;</span><br><span class="line">        i === <span class="number">999</span> &amp;&amp; resolve()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)  </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise3&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script&#x27;</span>)</span><br><span class="line"></span><br><span class="line">输出结果：promise1 -&gt; promise2 -&gt; script -&gt; promise3 -&gt; <span class="built_in">setTimeout</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>解析：</strong></li>
+<li>script 是宏任务，先执行它里面的微任务</li>
+<li>遇到宏任务setTimeout放到异步处理模块(延迟哈希表)</li>
+<li>继续执行promise，打印promise1</li>
+<li>遇到循环，执行，遇到回调 resolve()，上面说了回调属于微任务，放到微任务队列</li>
+<li>继续执行，打印 promise2</li>
+<li>继续执行，打印 script</li>
+<li>执行栈的任务执行完了，去微任务列队里拿</li>
+<li>有一个 then 回调，执行，打印 promise3</li>
+<li>微任务都执行完了，去任务队列拿下一个宏任务</li>
+<li>执行 setTimeout，打印 setTimeout</li>
+</ul>
+<h4 id="4-2-async-await"><a href="#4-2-async-await" class="headerlink" title="4.2  async / await"></a>4.2  async / await</h4><p>async/await 是 ES7 引入的重大改进的地方，<strong>可以在不阻塞主线程的情况下，使用同步代码实现异步访问资源的能力，</strong>让我们的代码逻辑更清晰。</p>
+<blockquote>
+<p>async：就是异步执行和隐式返回Promise<br>await：返回的就是一个Promise对象</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">let</span> a = <span class="keyword">await</span> <span class="number">4</span></span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">fun()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">1.2</span><span class="number">.3</span><span class="number">.4</span><span class="number">.5</span></span><br></pre></td></tr></table></figure>
+<p>结合 async / await 的特点，我们来把这个题用 ES6 翻译一下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">        <span class="built_in">Promise</span>.resolve(<span class="number">4</span>).then( <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(a)</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">fun()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调是微任务，所以直接扔到微任务队列等着，这题里自然就是最后执行，是不是好理解一点了</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下面给个稍微不一样的例子，注意await</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">await</span> bar()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">fun()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p>因为await的意思就是等，等await后面的执行完。所以”await bar()”，是从右向左执行，执行完bar()，然后遇到await，返回一个微任务(哪怕这任务里没东西)，放到微任务队列让出主线程。<br>上面说了 async/await 就是把异步以同步的形式实现，同步就是一步一步一行一行来嘛，await在微任务队列里都没回来，那在await下面的自然不能执行，导致 5 最后打印。</p>
+<h3 id="5-经典例子"><a href="#5-经典例子" class="headerlink" title="5. 经典例子"></a>5. 经典例子</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span> (<span class="params"></span>)  </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;async1 start&#x27;</span>);</span><br><span class="line">    <span class="keyword">await</span>  async2();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;async1 end&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span>  <span class="title">async2</span> (<span class="params"></span>)  </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;async2&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script start&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)  </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>)</span><br><span class="line">&#125;,  <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">async1();</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>)  </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>);</span><br><span class="line">    resolve()</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)  </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script end&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//结果:</span></span><br><span class="line">script start</span><br><span class="line">async1 start</span><br><span class="line">async2</span><br><span class="line">promise1</span><br><span class="line">script end</span><br><span class="line">async1 end</span><br><span class="line">promise2</span><br><span class="line"><span class="built_in">setTimeout</span></span><br></pre></td></tr></table></figure>
+
 
       
       
@@ -249,7 +288,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CSS Flex</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">JavaScript 同异步</a>
         		</li>
       		
 		</ul>
@@ -305,7 +344,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/08/08/Flex%E5%B8%83%E5%B1%80/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/07/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -319,18 +358,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/08/08/Grid%E5%B8%83%E5%B1%80/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/03/28/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Grid布局
+          webpack简单理解
         
       </div>
     </a>
   
   
-    <a href="/2020/08/07/js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">js执行机制</div>
+    <a href="/2020/08/27/vue-router/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vue-router</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -357,7 +396,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81Flex%E5%B8%83%E5%B1%80%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">一、Flex布局是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text">二、基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">三、容器的属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-flex-direction%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 flex-direction属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">四、项目的属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-order%E5%B1%9E%E6%80%A7"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 order属性</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">1.</span> <span class="toc-text">1.任务队列(消息队列)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF-EventLoop"><span class="toc-number">2.</span> <span class="toc-text">2.事件循环( EventLoop )</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5"><span class="toc-number">3.</span> <span class="toc-text">3.同步和异步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%BE%AE%E4%BB%BB%E5%8A%A1%E5%92%8C%E5%AE%8F%E4%BB%BB%E5%8A%A1"><span class="toc-number">4.</span> <span class="toc-text">4.微任务和宏任务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-%E5%8C%BA%E5%88%AB"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-async-await"><span class="toc-number">4.2.</span> <span class="toc-text">4.2  async &#x2F; await</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%BB%8F%E5%85%B8%E4%BE%8B%E5%AD%90"><span class="toc-number">5.</span> <span class="toc-text">5. 经典例子</span></a></li></ol>
                     </div>
                 </span>
             </div>
